@@ -1,6 +1,5 @@
 import sys, tty, termios
 
-
 def key_pressed(): #gets what char the user typed or what key he pressed
     action = ["", ""] #action that get returned and stored   ["do", "what"]
     presses =[]
@@ -26,7 +25,6 @@ def key_pressed(): #gets what char the user typed or what key he pressed
 
     termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  #restore original terminal setting
 
-    print(presses)
 
     if arrow_key_pressed == True: #if arrow key were pressed
         action[0] = "move_cursor"
@@ -43,11 +41,12 @@ def key_pressed(): #gets what char the user typed or what key he pressed
     else:
         if presses[0] == '\x7f':#delete
             action = ["delete", ""]
+
         elif presses[0] == '\r': #\n
             action = ["enter", ""]
 
-        elif action == "\x1a":
-            action = ["ctrl_z", ""]
+        elif presses[0] == '\x14':  #toggle menu
+            action = ["toggle_menu", ""]
 
         else:
             action = ["write", char]
